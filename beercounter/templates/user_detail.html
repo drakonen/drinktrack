@@ -1,0 +1,110 @@
+{% extends "main.html" %}
+{% load staticfiles %}
+{% load humanize %}
+{% block body %}
+
+<a class="btn btn-lg" href="{% url 'beer:list' %}">&lt; Back</a>
+<hr>
+
+<h1>{{ user.name }}</h1>
+
+<table class="table table-striped user-list">
+    <tbody>
+    {% for drink in drinks %}
+    <tr>
+        <td class="middle">{{ drink.drink__name }}</td>
+        <td class="middle text-right beer-count">{{ drink.drink_sum }}</td>
+
+        <td class="middle text-right button-fit-wide">
+            <form method="POST" action="{% url 'beer:up' %}">
+                {% csrf_token %}
+                <input type="hidden" name="user-id" value="{{ user.id }}">
+                <input type="hidden" name="to-view" value="beer:user_detail">
+                <input type="hidden" name="drink-id" value="{{ drink.drink_id }}">
+                <button type="submit" class="btn btn-success btn-lg btn-plus">🍻</button>
+            </form>
+            <form method="POST" action="{% url 'beer:down' %}">
+                {% csrf_token %}
+                <input type="hidden" name="user-id" value="{{ user.id }}">
+                <input type="hidden" name="to-view" value="beer:user_detail">
+                <input type="hidden" name="drink-id" value="{{ drink.drink_id }}">
+                <button type="submit" class="btn btn-primary btn-lg btn-exception-beer">
+                    +<img height="30px" src="{% static 'label-beer-bottle.svg' %}">&nbsp;
+                </button>
+            </form>
+            <form method="POST" action="{% url 'beer:down' %}">
+                {% csrf_token %}
+                <input type="hidden" name="user-id" value="{{ user.id }}">
+                <input type="hidden" name="to-view" value="beer:user_detail">
+                <input type="hidden" name="drink-id" value="{{ drink.drink_id }}">
+                <input type="hidden" name="count" value="-{{ drink.drink__crate_size }}">
+                <button type="submit" class="btn btn-primary btn-lg btn-add">
+                    + <img height="30px" src="{% static 'beer_crate.svg' %}">&nbsp;
+                </button>
+            </form>
+        </td>
+
+    </tr>
+    {% empty %}
+    <tr>
+        <td>No drinks</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+
+</table>
+
+<br>
+<br>
+
+<table class="table table-striped user-list">
+    <tbody>
+    {% for consumption in last_10 %}
+    <tr>
+        <td class="middle">
+            {{ consumption.drink.name }}
+        </td>
+        <td class="middle">
+            {{ consumption.count }}
+        </td>
+        <td class="middle text-right">
+            {{ consumption.datetime|naturaltime }}
+        </td>
+        <td class="middle text-right">
+            <form method="POST" action=" {% url 'beer:remove_consumption' consumption.id %}">
+                {% csrf_token %}
+                <input type="hidden" name="consumption-id" value="{{ consumption.id }}">
+                <input type="hidden" name="consumption-count" value="{{ consumption.count }}">
+                <input type="hidden" name="consumption-name" value="{{ consumption.drink.name }}">
+                <button type="button" class="btn btn-danger btn-sm removeConsumption">
+                    X
+                </button>
+
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    function confirmSubmit(e) {
+        var val = e.target.parentElement.querySelector("[name=consumption-id]").value;
+        var count = e.target.parentElement.querySelector("[name=consumption-count]").value;
+        var name = e.target.parentElement.querySelector("[name=consumption-name]").value;
+
+        var yes = confirm("Do you really want to delete " + count + " " + name + "?");
+        if (yes) {
+            //delete
+            e.target.parentElement.submit();
+        }
+    }
+
+  var rmbuttons = document.getElementsByClassName("removeConsumption");
+  for (var i = 0; i < rmbuttons.length; i++ ) {
+      rmbuttons[i].onclick = confirmSubmit;
+  }
+
+</script>
+
+{% endblock %}

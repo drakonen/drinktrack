@@ -1,0 +1,81 @@
+form {
+    display: inline
+}
+
+body {
+    color: white;
+    margin: 5px;
+}
+
+.stats {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+
+}
+
+.btn {
+    min-width: 72px;
+    min-height: 72px;
+}
+
+.btn-add {
+    padding: 2px;
+}
+
+.btn-plus {
+    font-size: 48px;
+    padding: 2px;
+}
+
+
+.btn-spaced {
+    margin-left: 1em;
+}
+
+.removeConsumption {
+    min-height: 4em;
+    min-width: 4em;
+}
+
+.btn-exception-beer {
+    padding: 4px;
+}
+
+
+/* needs to be specific to override bootstrap */
+.table.user-list > tbody > tr > td {
+    vertical-align: middle;
+    padding: 1px;
+}
+
+h1 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.button-fit-wide {
+    width: 12em;
+}
+.button-fit {
+    width: 9em;
+}
+
+.beer-count {
+    width: 6em;
+}
+
+.stats-table td {
+    font-size: 1.5em;
+    padding-right: 2em;
+    padding-bottom: 0.5em;
+}
+
+.user-list {
+    font-size: 1.5em;
+}
+
+.tr-fit {
+    width: 1%;
+    white-space: nowrap;
+}

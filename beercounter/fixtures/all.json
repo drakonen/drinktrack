@@ -1,0 +1,30 @@
+[
+    {
+        "model": "beercounter.user",
+        "pk": 1,
+        "fields": {
+            "name": "Johan"
+        }
+    },
+    {
+        "model": "beercounter.user",
+        "pk": 2,
+        "fields": {
+            "name": "Justin"
+        }
+    },
+    {
+        "model": "beercounter.drink",
+        "pk": 1,
+        "fields": {
+            "name": "Beer"
+        }
+    },
+    {
+        "model": "beercounter.drink",
+        "pk": 2,
+        "fields": {
+            "name": "Club Mate"
+        }
+    }
+]

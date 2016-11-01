@@ -1,0 +1,25 @@
+{% extends "main.html" %}
+{% block body %}
+<h1>Drinks 1.2</h1>
+<table class="table table-striped user-list">
+    <tbody>
+    {% for user in users %}
+    <tr>
+        <td class="middle"><a href="{% url 'beer:user_detail' user.id %}">{{ user.name }}</a></td>
+        <td class="middle text-right beer-count">{% if user.num_drinks == None %}-{% else %}
+            {{ user.num_drinks }}{% endif %}
+        </td>
+        <td class="middle text-right button-fit">
+            <form method="POST" action="{% url 'beer:up' %}">
+                {% csrf_token %}
+                <input type="hidden" name="user-id" value="{{ user.id }}">
+                <input type="hidden" name="drink-id" value="1">
+                <button type="submit" class="btn btn-success btn-lg btn-plus">🍻</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

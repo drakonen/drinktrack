@@ -1,0 +1,18 @@
+{% load staticfiles %}
+
+<html>
+<head>
+    <title>{% block title %} Beer-o-mat {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'bootstrap-cyborg.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <meta charset="UTF-8">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+
+</head>
+<body>
+<a class="stats" href="{% url 'beer:stats' %}">Stats</a>
+{% block body %} {% endblock %}
+</body>
+</html>

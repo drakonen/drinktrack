@@ -1,0 +1,8 @@
+*.pyc
+*.pyo
+.idea
+.venv
+*.sqlite3
+.htpasswd
+static_serve
+settings_local.py
